@@ -15,7 +15,7 @@ import re
 from tensorzoom_net import TensorZoomNet
 
 FLAGS = tf.app.flags.FLAGS
-tf.app.flags.DEFINE_string('pb_path', './results/tz6-s-stitch/tz6-s-stitch-gen.npy',
+tf.app.flags.DEFINE_string('pb_path', './results/tz6-s-stitch-sblur-lowtv/tz6-s-stitch-sblur-lowtv-gen.npy',
                         """
 tz6-s-stitch/tz6-s-stitch-gen.npy
     for small image/ icon/ thumbnail, use non-deblur version has better result

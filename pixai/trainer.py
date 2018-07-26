@@ -66,7 +66,9 @@ def train(ds, dis_learning_rate, gen_learning_rate):
         in_train_gen = tf.placeholder(tf.bool)
         in_train_dis = tf.placeholder(tf.bool)
         in_large = tf.placeholder(tf.float32, [1, SIZE, SIZE, 3])
+        in_small = tf.placeholder(tf.float32, [1, SIZE, SIZE, 3])
 
+        """
         # extra difficulty: blur the large image:
         blur_filter = tf.constant(1, shape=[5, 5, 1, 1], dtype=tf.float32) / 25
         blur_filter = tf.tile(blur_filter, [1, 1, 3, 1])
@@ -78,10 +80,11 @@ def train(ds, dis_learning_rate, gen_learning_rate):
         # use stitch training method, slice the image into tiles and concat as batches
         t = create_tiles(in_small, SIZE / 4, SIZE / 4, 4)
         in_stitch = tf.concat(0, [tf.concat(0, t[y]) for y in xrange(4)])  # row1, row2, ...
+        """
 
         generator = TensorZoomNet(trainable=True, npy_path=GEN_NPY)
         with tf.name_scope("generator"):
-            generator.build(in_stitch, train_mode=in_train_gen)
+            generator.build(in_small, train_mode=in_train_gen)
 
         # stitch the tiles back together after split the batches
         gen_split = tf.split(0, 4 * 4, generator.output)
